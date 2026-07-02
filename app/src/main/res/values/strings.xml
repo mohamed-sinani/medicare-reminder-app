@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Medicare Reminder</string>
+    <string name="medicine_icon">Medicine Icon</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_in_subtitle">sign in to continue with medicare</string>
+    <string name="sign_up_subtitle">signup to continue with medicare</string>
+    <string name="label_full_name">Full name</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="link_login">already have account? login</string>
+    <string name="link_register">don\'t have account? register</string>
+    <string name="hint_full_name">Enter your full name</string>
+    <string name="hint_email">Enter your email address</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="hint_search">Search medicines...</string>
+</resources>
