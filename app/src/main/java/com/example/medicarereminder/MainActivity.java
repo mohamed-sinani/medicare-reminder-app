@@ -16,21 +16,37 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        dbHelper = new DatabaseHelper(this);
         
         etEmail = findViewById(R.id.editTextTextEmailAddress);
         etPassword = findViewById(R.id.editTextTextPassword);
         Button btnLogin = findViewById(R.id.button3);
         
         btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, dashboard.class);
-            startActivity(intent);
-            finish();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (dbHelper.checkUser(email, password)) {
+                getSharedPreferences("user_prefs", MODE_PRIVATE).edit().putString("email", email).apply();
+                Intent intent = new Intent(MainActivity.this, dashboard.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+            }
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

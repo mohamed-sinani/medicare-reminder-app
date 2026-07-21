@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +22,20 @@ public class ProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
         
+        dbHelper = new DatabaseHelper(this);
+        
+        TextView tvName = findViewById(R.id.txtName);
         TextView tvEmail = findViewById(R.id.txtEmail);
-        tvEmail.setText("user@example.com");
+        TextView tvAvatar = findViewById(R.id.txtAvatar);
+
+        String email = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("email", "user@example.com");
+        String name = dbHelper.getUserName(email);
+
+        tvEmail.setText(email);
+        tvName.setText(name);
+        if (name != null && !name.isEmpty()) {
+            tvAvatar.setText(String.valueOf(name.charAt(0)).toUpperCase());
+        }
 
         findViewById(R.id.cardLogout).setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
