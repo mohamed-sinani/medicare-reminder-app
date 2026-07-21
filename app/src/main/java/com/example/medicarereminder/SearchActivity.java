@@ -92,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         executorService.execute(() -> {
             String result = "";
             try {
-                URL url = new URL("https://rxnav.nlm.nih.gov/REST/drugs.json?name=" + query);
+                URL url = new URL("https://api.fda.gov/drug/label.json?search=openfda.brand_name:\"" + query + "\"&limit=5");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -109,8 +109,8 @@ public class SearchActivity extends AppCompatActivity {
             final String finalResult = result;
             handler.post(() -> {
                 progressBar.setVisibility(View.GONE);
-                if (finalResult == null || finalResult.isEmpty()) {
-                    Toast.makeText(this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                if (finalResult.isEmpty()) {
+                    Toast.makeText(this, "No information found or error fetching data", Toast.LENGTH_SHORT).show();
                 } else {
                     parseAndDisplayResults(finalResult);
                 }
@@ -121,44 +121,46 @@ public class SearchActivity extends AppCompatActivity {
     private void parseAndDisplayResults(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);
-            if (!jsonObject.has("drugGroup")) return;
-            JSONObject drugGroup = jsonObject.getJSONObject("drugGroup");
-            if (!drugGroup.has("conceptGroup")) {
-                Toast.makeText(this, "No medicines found", Toast.LENGTH_SHORT).show();
+            if (!jsonObject.has("results")) {
+                Toast.makeText(this, "No information found", Toast.LENGTH_SHORT).show();
                 return;
             }
-            JSONArray conceptGroups = drugGroup.getJSONArray("conceptGroup");
+            JSONArray results = jsonObject.getJSONArray("results");
 
-            for (int i = 0; i < conceptGroups.length(); i++) {
-                JSONObject group = conceptGroups.getJSONObject(i);
-                if (group.has("conceptProperties")) {
-                    JSONArray props = group.getJSONArray("conceptProperties");
-                    for (int j = 0; j < props.length(); j++) {
-                        JSONObject drug = props.getJSONObject(j);
-                        String name = drug.getString("name");
-                        addResultView(name);
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject drug = results.getJSONObject(i);
+                String name = "Unknown Medicine";
+                if (drug.has("openfda")) {
+                    JSONObject openfda = drug.getJSONObject("openfda");
+                    if (openfda.has("brand_name")) {
+                        name = openfda.getJSONArray("brand_name").getString(0);
                     }
                 }
+
+                String info = "Information not available";
+                if (drug.has("indications_and_usage")) {
+                    info = drug.getJSONArray("indications_and_usage").getString(0);
+                } else if (drug.has("purpose")) {
+                    info = drug.getJSONArray("purpose").getString(0);
+                }
+
+                addResultView(name, info);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Error parsing medicine information", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void addResultView(String name) {
+    private void addResultView(String name, String info) {
         View view = LayoutInflater.from(this).inflate(R.layout.item_search_result, layoutResults, false);
         TextView txtName = view.findViewById(R.id.txtName);
         TextView txtPurpose = view.findViewById(R.id.txtPurpose);
         Button btnAdd = view.findViewById(R.id.btnAddMed);
 
         txtName.setText(name);
-        txtPurpose.setText("Commonly used medication");
-
-        btnAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddMedicineActivity.class);
-            intent.putExtra("medName", name);
-            startActivity(intent);
-        });
+        txtPurpose.setText(info);
+        btnAdd.setVisibility(View.GONE);
 
         layoutResults.addView(view);
     }
