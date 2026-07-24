@@ -23,7 +23,7 @@
                 style="@style/AppText.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome back,"
+                android:text="Good Morning"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
                 style="@style/AppText.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Health"
+                android:text="Mohamed,"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewGreeting" />
 
@@ -54,7 +54,7 @@
                         style="@style/AppText.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TODAY'S PROGRESS"
+                        android:text="TODAY"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:alpha="0.8"
@@ -76,7 +76,7 @@
                         style="@style/AppText.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MEDICINES COMPLETED"
+                        android:text="MEDICINES TAKEN"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:alpha="0.8"
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Current Schedule"
+                android:text="Today's Medicines"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardSummary" />
@@ -112,8 +112,7 @@
                 style="@style/AppButton.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add New"
-                app:icon="@drawable/ic_plus"
+                android:text="+ Add"
                 app:layout_constraintBottom_toBottomOf="@id/textViewListTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textViewListTitle" />

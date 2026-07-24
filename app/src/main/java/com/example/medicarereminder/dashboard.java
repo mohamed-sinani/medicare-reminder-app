@@ -35,7 +35,7 @@ public class dashboard extends AppCompatActivity {
 
         String email = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("email", "user@example.com");
         String name = dbHelper.getUserName(email);
-        txtUserName.setText("Hello, " + name);
+        txtUserName.setText(name + ",");
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -92,17 +92,27 @@ public class dashboard extends AppCompatActivity {
         while (cursor.moveToNext()) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_medicine, container, false);
             TextView name = view.findViewById(R.id.tvMedName);
-            TextView dosageFreq = view.findViewById(R.id.tvDosageFreq);
+            TextView dosage = view.findViewById(R.id.tvDosage);
             TextView time = view.findViewById(R.id.tvTime);
+            TextView freq = view.findViewById(R.id.tvFrequency);
+            View btnDelete = view.findViewById(R.id.ivDelete);
 
+            String id = cursor.getString(0);
             String medName = cursor.getString(1);
-            String dosage = cursor.getString(2);
+            String medDosage = cursor.getString(2);
             String medTime = cursor.getString(3);
-            String freq = cursor.getString(4);
+            String medFreq = cursor.getString(4);
 
             name.setText(medName);
-            dosageFreq.setText(dosage + " • " + freq);
+            dosage.setText(medDosage);
             time.setText(medTime);
+            freq.setText(medFreq);
+
+            btnDelete.setOnClickListener(v -> {
+                dbHelper.deleteData(id);
+                loadMedicines();
+                Toast.makeText(this, "Medicine deleted", Toast.LENGTH_SHORT).show();
+            });
 
             container.addView(view);
         }
