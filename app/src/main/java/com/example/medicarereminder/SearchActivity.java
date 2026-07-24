@@ -156,11 +156,9 @@ public class SearchActivity extends AppCompatActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.item_search_result, layoutResults, false);
         TextView txtName = view.findViewById(R.id.txtName);
         TextView txtPurpose = view.findViewById(R.id.txtPurpose);
-        Button btnAdd = view.findViewById(R.id.btnAddMed);
 
         txtName.setText(name);
         txtPurpose.setText(info);
-        btnAdd.setVisibility(View.GONE);
 
         layoutResults.addView(view);
     }

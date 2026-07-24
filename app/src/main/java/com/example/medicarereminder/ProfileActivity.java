@@ -38,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.cardLogout).setOnClickListener(v -> {
+            getSharedPreferences("user_prefs", MODE_PRIVATE).edit().clear().apply();
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

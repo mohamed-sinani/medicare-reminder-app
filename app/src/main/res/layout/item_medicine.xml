@@ -4,7 +4,10 @@
     style="@style/AppCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="20dp"
+    app:strokeWidth="0dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,9 +16,12 @@
 
         <ImageView
             android:id="@+id/ivIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_pill"
+            android:padding="8dp"
+            android:background="@drawable/circle_pink"
+            android:backgroundTint="@color/pink_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,11 +33,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Paracetamol"
-            android:textSize="16sp"
+            android:text="Medicine Name"
+            android:textSize="17sp"
             app:layout_constraintEnd_toStartOf="@id/tvTime"
             app:layout_constraintStart_toEndOf="@id/ivIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/tvDosageFreq" />
 
         <TextView
             android:id="@+id/tvDosageFreq"
@@ -39,18 +47,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="500mg • Twice a day"
+            android:text="Dosage • Frequency"
             app:layout_constraintEnd_toStartOf="@id/tvTime"
             app:layout_constraintStart_toEndOf="@id/ivIcon"
-            app:layout_constraintTop_toBottomOf="@id/tvMedName" />
+            app:layout_constraintTop_toBottomOf="@id/tvMedName"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvTime"
             style="@style/AppText.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="08:00"
+            android:text="00:00"
             android:textColor="@color/pink_primary"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

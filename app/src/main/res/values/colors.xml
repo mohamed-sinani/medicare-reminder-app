@@ -8,8 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink_primary">#F82FB2</color>
+    <color name="pink_dark">#D11A8E</color>
+    <color name="pink_soft">#FF8ACD</color>
     <color name="pink_light">#FFF0F9</color>
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
     <color name="gray_text">#757575</color>
+    <color name="gray_light">#E0E0E0</color>
     <color name="blue_badge">#E3F2FD</color>
     <color name="blue_text">#1976D2</color>
 </resources>

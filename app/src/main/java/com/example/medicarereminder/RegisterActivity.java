@@ -49,8 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             boolean isInserted = dbHelper.insertUser(name, email, password);
             if (isInserted) {
+                getSharedPreferences("user_prefs", MODE_PRIVATE).edit().putString("email", email).apply();
                 Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, dashboard.class);
                 startActivity(intent);
                 finish();
             } else {
